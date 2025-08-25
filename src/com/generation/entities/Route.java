@@ -1,7 +1,6 @@
 package com.generation.entities;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -10,7 +9,7 @@ import java.time.temporal.ChronoUnit;
  */
 public class Route {
     private final int distance;
-    private final TrainTier tier;
+    private final RouteTier tier;
     private final double basePrice;
     private final LocalDateTime departureTime;
     private final LocalDateTime arrivingTime;
@@ -23,7 +22,7 @@ public class Route {
         return distance;
     }
 
-    public TrainTier getTier() {
+    public RouteTier getTier() {
         return tier;
     }
 
@@ -52,7 +51,17 @@ public class Route {
     }
     //endregion
 
-    public Route(int distance, int row, TrainTier tier, double basePrice, LocalDateTime departureTime, LocalDateTime arrivingTime, TrainType trainType, String departureStation, String arrivalStation) {
+    /**
+     * departureStation,arrivalStation,departureTime,arrivingTime,distance,basePrice,trainType,tier
+     */
+    public Route(String departureStation,
+                 String arrivalStation,
+                 LocalDateTime departureTime,
+                 LocalDateTime arrivingTime,
+                 int distance,
+                 double basePrice,
+                 TrainType trainType,
+                 RouteTier tier) {
         if (distance <= 0) throw new IllegalArgumentException("Distance cannot be 0 or below.");
         if (basePrice <= 0) throw new IllegalArgumentException("Distance cannot be 0 or below.");
         if (arrivingTime.isBefore(departureTime)) throw new IllegalArgumentException("Arrival time cannot be before departure time.");

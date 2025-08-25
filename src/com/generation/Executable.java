@@ -1,7 +1,7 @@
 package com.generation;
 
 import com.generation.businesslogic.RoutesBusinessLogic;
-import com.generation.library.Console;
+import com.generation.library.ConsoleV2;
 
 public class Executable
 {
@@ -14,7 +14,7 @@ public class Executable
 		do
 		{
 			System.out.println("Inserisci comando");
-			cmd = Console.readString().toLowerCase();
+			cmd = ConsoleV2.readString().toLowerCase();
 
 			switch (cmd)
 			{
