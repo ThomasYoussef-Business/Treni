@@ -7,7 +7,6 @@ import com.generation.library.ConsoleV2;
 import com.generation.repositories.RepositoryRouteCsv;
 
 import java.time.LocalDateTime;
-import java.util.function.Predicate;
 
 public class RoutesBusinessLogic {
     private RepositoryRouteCsv repo;
@@ -18,7 +17,10 @@ public class RoutesBusinessLogic {
 
     public void printAll() {
         System.out.println("Ecco le tue routes");
-        printAllMatching(r -> true);
+
+        for (Route r : repo.read()) {
+            System.out.println(r);
+        }
     }
 
     public void createNewRoutes() {
@@ -32,7 +34,6 @@ public class RoutesBusinessLogic {
         data[5] = ConsoleV2.askAndReadString("Inserire il prezzo base:");
         data[6] = ConsoleV2.askAndReadString("Inserire il tipo di treno [Regional/Intercity/National]:");
         data[7] = ConsoleV2.askAndReadString("Inserire il tipo di biglietto [Economy/Business/First Class]:");
-        //TODO di tutti gli altri campi
 
         Route r = new Route(data[0],
                 data[1],
@@ -56,12 +57,8 @@ public class RoutesBusinessLogic {
     public void printFrom() {
         final String searchInput = ConsoleV2.askAndReadString("Inserire stazione di partenza da cercare:").toLowerCase();
 
-        printAllMatching(route -> route.getDepartureStation().toLowerCase().contains(searchInput));
-    }
-
-    public void printAllMatching(Predicate<Route> tester) {
         for (Route r : repo.read()) {
-            if (tester.test(r))
+            if (r.getDepartureStation().toLowerCase().contains(searchInput.toLowerCase()))
                 System.out.println(r);
         }
     }

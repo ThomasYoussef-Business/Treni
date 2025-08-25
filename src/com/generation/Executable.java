@@ -9,7 +9,7 @@ public class Executable
 	{
 		RoutesBusinessLogic rbl = new RoutesBusinessLogic();
 
-		String cmd = "";
+		String cmd;
 
 		do
 		{
@@ -32,13 +32,13 @@ public class Executable
 
 	private static void help()
 	{
-		StringBuilder builder = new StringBuilder();
-		builder.append("Comandi disponibili\n");
-		builder.append("print - stampa tutte le routes");
-		builder.append("print-from - stampa tutte le routes che partono da una stazione");
-		builder.append("new - crea nuova route");
-		builder.append("quit - esci");
+        String prompt = """
+                Comandi disponibili
+                print - stampa tutte le routes
+                print-from - stampa tutte le routes che partono da una stazione
+                new - crea nuova route
+                quit - esci""";
 
-		System.out.println(builder.toString());
+		System.out.println(prompt);
 	}
 }
