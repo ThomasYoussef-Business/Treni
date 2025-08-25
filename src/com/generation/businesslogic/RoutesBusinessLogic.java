@@ -1,12 +1,10 @@
 package com.generation.businesslogic;
 
+import java.time.LocalTime;
+
 import com.generation.entities.Route;
-import com.generation.entities.RouteTier;
-import com.generation.entities.TrainType;
 import com.generation.library.ConsoleV2;
 import com.generation.repositories.RepositoryRouteCsv;
-
-import java.time.LocalDateTime;
 
 public class RoutesBusinessLogic {
     private RepositoryRouteCsv repo;
@@ -24,27 +22,19 @@ public class RoutesBusinessLogic {
     }
 
     public void createNewRoutes() {
+        Route route = new Route();
         // departureStation,arrivalStation,departureTime,arrivingTime,distance,basePrice,trainType,tier
-        String[] data = new String[8];
-        data[0] = ConsoleV2.askAndReadString("Inserire la stazione di partenza:");
-        data[1] = ConsoleV2.askAndReadString("Inserire la stazione di destinazione:");
-        data[2] = ConsoleV2.askAndReadString("Inserire l'orario di partenza:");
-        data[3] = ConsoleV2.askAndReadString("Inserire l'orario di arrivo:");
-        data[4] = ConsoleV2.askAndReadString("Inserire la distanza del viaggio:");
-        data[5] = ConsoleV2.askAndReadString("Inserire il prezzo base:");
-        data[6] = ConsoleV2.askAndReadString("Inserire il tipo di treno [Regional/Intercity/National]:");
-        data[7] = ConsoleV2.askAndReadString("Inserire il tipo di biglietto [Economy/Business/First Class]:");
 
-        Route r = new Route(data[0],
-                data[1],
-                LocalDateTime.parse(data[2]),
-                LocalDateTime.parse(data[3]),
-                Integer.parseInt(data[4]),
-                Double.parseDouble(data[5]),
-                TrainType.valueOf(data[6].toUpperCase()),
-                RouteTier.valueOf(data[7].toUpperCase().replaceAll("\\s", "_")));
+        route.setArrivalStation(ConsoleV2.askAndReadString("Inserire la stazione di partenza:"));
+        route.setDepartureStation(ConsoleV2.askAndReadString("Inserire la stazione di destinazione:"));
+        route.setDepartureTime(LocalTime.parse(ConsoleV2.askAndReadString("Inserire l'orario di partenza:")));
+        route.setArrivingTime(LocalTime.parse(ConsoleV2.askAndReadString("Inserire l'orario di arrivo:")));
+        route.setDistance(ConsoleV2.askAndReadUInt("Inserire la distanza del viaggio:"));
+        route.setBasePrice(ConsoleV2.askAndReadUDouble("Inserire il prezzo base:"));
+        route.setTrainType(ConsoleV2.askAndReadString("Inserire il tipo di treno [Regional/Intercity/National]:"));
+        route.setTier(ConsoleV2.askAndReadString("Inserire il tipo di biglietto [Economy/Business/First Class]:"));
 
-        repo.create(r);
+        repo.create(route);
     }
 
     /**

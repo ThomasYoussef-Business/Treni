@@ -1,12 +1,10 @@
 package com.generation.repositories;
 
 import com.generation.entities.Route;
-import com.generation.entities.RouteTier;
-import com.generation.entities.TrainType;
 import com.generation.library.FileReader;
 
 import java.io.FileWriter;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 /**
@@ -63,15 +61,16 @@ public class RepositoryRouteCsv {
         //1 - splitto la riga del csv
         String[] spl = row.split(",");
         //2 - Creo nuovo oggetto route e lo riempo
-        Route r = new Route(spl[0],
-                spl[1],
-                LocalDateTime.parse(spl[2]),
-                LocalDateTime.parse(spl[3]),
-                Integer.parseInt(spl[4]),
-                Double.parseDouble(spl[5]),
-                TrainType.valueOf(spl[6]),
-                RouteTier.valueOf(spl[7]));
+        Route r = new Route();
         //3 - utilizzo i valori della riga per riempire le proprietà dell'oggetto
+        r.setDepartureStation(spl[0]);
+        r.setArrivalStation(spl[1]);
+        r.setDepartureTime(LocalTime.parse(spl[2]));
+        r.setArrivingTime(LocalTime.parse(spl[3]));
+        r.setDistance(Integer.parseInt(spl[4]));
+        r.setBasePrice(Double.parseDouble(spl[5]));
+        r.setTrainType(spl[6]);
+        r.setTier(spl[7]);
 
         //4 - aggiungo oggetto alla lista
         content.add(r);
